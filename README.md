@@ -9,7 +9,7 @@ It provides tools to quickly explore, clean, and prepare datasets, as well as te
 
 ### DataEditor
 - Inspect and preview columns and their unique values.
-- Detect and handle **low-cardinality categorical variables**.
+- Detect and handle potentially ordinal categorical values for manual ordering.
 - Manage missing values with multiple options:
   - Mean imputation
   - Deleting rows or columns with missing values
