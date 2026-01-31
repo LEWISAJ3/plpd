@@ -3,10 +3,32 @@ from tkinter import ttk
 import pandas as pd
 import numpy as np
 
-class data_editor():
+class DataEditor():
     
     def __init__(self,data):
         self.data=data
+    def convert_to_cat(self, col, labels):
+        
+        
+        x = self.data[col]
+        col_min, col_max = np.min(x), np.max(x)
+        n_bins = len(labels)
+        
+        # Create bin edges (n_bins + 1 because np.digitize expects edges)
+        bin_edges = np.linspace(col_min, col_max, n_bins + 1)
+        
+        # Use np.digitize to find the bin index for each value
+        bin_indices = np.digitize(x, bins=bin_edges, right=False) - 1  # subtract 1 to get 0-based index
+        
+        # Clip indices in case max value falls exactly on last edge
+        bin_indices = np.clip(bin_indices, 0, n_bins - 1)
+        
+        # Map indices to labels
+        newcol = [labels[i] for i in bin_indices]
+        
+        # Assign back to dataframe
+        self.data[col] = newcol
+
     def column_preview(self, col, n=3):
         df = self.data
         uniques = df[col].dropna().unique()[:n]
@@ -39,7 +61,9 @@ class data_editor():
         msno.heatmap(msngdata, ax=axs[1])
 
         plt.tight_layout()
-        plt.savefig("example.png")
+        plt.savefig("C:/Users/Allen/example.png")
+        plt.close(fig)
+        
         
         def mean_impute():
             num_cols = self.data.select_dtypes(include='number').columns
@@ -117,10 +141,10 @@ class data_editor():
         left_frame = tk.Frame(main_frame)
         left_frame.pack(side="left", padx=10)
 
-        image = Image.open("example.png").resize((200, 200))
+        image = Image.open("C:/Users/Allen/example.png").resize((200, 200))
         photo = ImageTk.PhotoImage(image)
 
-        label = tk.Label(left_frame, image=photo)
+        label = tk.Label(left_frame,image=photo)
         label.image = photo   # keep reference
         label.pack()
 
