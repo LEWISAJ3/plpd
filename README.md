@@ -1,6 +1,6 @@
 # PLPD
 
-**PLPD** is a Python package for **data preprocessing and regression pipelines**.  
+**PLPD** is a Python package for **data preprocessing, visualization and regression pipelines**.  
 It provides tools to quickly explore, clean, and prepare datasets, as well as test multiple regression models to identify the best-performing one.
 
 ---
